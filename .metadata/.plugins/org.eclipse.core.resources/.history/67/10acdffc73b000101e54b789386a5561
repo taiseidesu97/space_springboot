@@ -1,0 +1,15 @@
+package com.springboot.repository;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.springboot.entity.Board;
+
+public interface BoardRepository extends JpaRepository<Board, Integer>{
+	//save(),findById(),findAll, delete()
+
+	//쿼리 메서드 - 글 제목 그 자체로 검색
+	
+	List<Board> findByTitle(String searchKeyword);
+}

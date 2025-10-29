@@ -1,0 +1,97 @@
+package com.springboot;
+
+
+import java.util.List;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+
+import com.springboot.entity.Board;
+import com.springboot.repository.BoardRepository;
+
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
+@SpringBootTest
+public class QueryMethodTest {
+	
+	@Autowired	//repository 객체를 생성해 줌
+	private BoardRepository repository;
+
+//	@BeforeEach
+//	public void dataPrepare() {
+//		for(int i=1; i<=200; i++) {
+//			Board board = new Board();
+//			board.setTitle("테스트 제목" + i);
+//			board.setWriter("테스터");
+//			board.setContent("테스트 내용 " + i);
+//			
+//			repository.save(board);
+//		}
+//	}
+	
+//	@Test
+//	public void testFindByTitle() {
+//		List<Board> boardList = 
+//				repository.findByTitle("테스트 제목4");
+//		
+//		log.info("검색 결과");
+//		for(Board board : boardList) {
+//			log.info("===>" + board.toString());
+//			
+			
+//		}
+	
+//}
+	
+//	@Test
+//	public void testFindByContaining() {
+//		List<Board> boardList =
+//				repository.findByContentContaining("10");
+//		
+//		log.info("검색 결과");
+//		for(Board board : boardList) {
+//			log.info("===>" + board.toString());
+//		}
+//	}
+//	@Test
+//	public void testFindByTitleContainingOrderByIdDesc() {
+//		List<Board> boardList = 
+//				repository.findByTitleContainingOrderByIdDesc("10");
+//		
+//		log.info("검색 결과");
+//	for(Board board : boardList) {
+//		log.info("===>" + board.toString());
+//		}
+//	}
+	@Test
+	public void testFindByTitleContainingPage() {
+		//첫 페이지 번호( pageNumber)
+		//10-> 페이지당 데이터수(pageSize)
+//		Pageable paging = PageRequest.of(0, 10); //오름차순
+		Pageable paging = PageRequest.of(1,10, Sort.Direction.DESC,"id"); //내림차순
+		
+		List<Board> boardList = 
+		repository.findByTitleContaining("제목", paging);
+		log.info("검색 결과");
+		for(Board board : boardList) {
+			log.info("===>" + board.toString());
+			}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}
